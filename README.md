@@ -14,7 +14,7 @@ The system consists of three main parts:
 2.  **Classroom Scanner (Dual ESP32):** A two-part node that receives BLE signals and sends them to the network.
     * **ESP32-A (Scanner):** Scans for BLE broadcasts, filters for known tags, and adds an accurate timestamp (via an RTC Module).
     * **ESP32-B (Wi-Fi):** Receives data from ESP32-A via **ESP-NOW** and POSTs it (as JSON) to the backend API.
-3.  **Backend Server (Rails API):** (Not in this repo) A central server that receives the JSON data and records the attendance.
+3.  **[Backend Server (Rails API)](https://github.com/JohnReyGimenez/BLE-Attendance-API):** (Not in this repo) A central server that receives the JSON data and records the attendance.
 
 ### Data Flow
 
@@ -71,5 +71,6 @@ This is a [PlatformIO](https://platformio.org/) project. All firmware source cod
     * Receives data packets from ESP32-A via ESP-NOW.
     * Connects to the local Wi-Fi network.
     * Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
+
 
 
