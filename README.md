@@ -46,5 +46,30 @@ The system consists of three main parts:
 | Enclosure | 3D Printed Case (w/ vents) | Housing for dual ESP32s |
 | Power | 5V USB-C Power Supply (x2) | Main power for scanners |
 
+---
+
+## Firmware
+
+This is a [PlatformIO](https://platformio.org/) project. All firmware source code is located in the `src/` directory.
+
+* **`platformio.ini`**: The project configuration file. It defines the boards (nRF52840, ESP32), framework (Arduino), and all required libraries (e.g., BLE libraries, ESP-NOW, RTC, etc.).
+
+* **`src/ble_tag_nrf52840.cpp` (BLE Tag):**
+    * Firmware for the nRF52840 beacon.
+    * It initializes the chip as a BLE server and periodically broadcasts an **iBeacon frame**.
+    * This specific frame format allows scanners to efficiently identify the tag.
+
+* **`src/esp32a_scanner.cpp` (Scanner Node):**
+    * Firmware for the ESP32-A, which handles all real-time sensing.
+    * Continuously scans for BLE advertisements.
+    * Filters for the specific iBeacons broadcast by the tags.
+    * Queries the DS3231 RTC for an accurate timestamp upon detection.
+    * Sends the event data (tag ID, timestamp) to ESP32-B via ESP-NOW.
+
+* **`src/esp32b_wifi.cpp` (Wi-Fi Node):**
+    * Firmware for the ESP32-B, which handles all network communication.
+    * Receives data packets from ESP32-A via ESP-NOW.
+    * Connects to the local Wi-Fi network.
+    * Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
 
 
