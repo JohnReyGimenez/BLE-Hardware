@@ -29,7 +29,7 @@ The system consists of three main parts:
 | Component | Specification |
 | :--- | :--- |
 | Microcontroller | **nRF52840 ProMicro Dev Board V2** |
-| Battery | **3.7V LiPo (e.g., 501515 80mAh)** |
+| Battery | **3.7V LiPo (501515 80mAh)** |
 | Battery Cable 1 | **JST-PH 2.0 Male** (with bare wires) |
 | Battery Cable 2 | **Male-to-Female Dupont Wires** (x2) |
 | Enclosure | 3D Printed Keyfob Case |
@@ -41,10 +41,8 @@ The system consists of three main parts:
 | Scanner Node | **ESP32 Dev Board** |
 | Wi-Fi Node | **ESP32 Dev Board** |
 | Timekeeping | **DS3231 RTC Module** |
-| RTC Battery | **CR1220 or CR2032 Coin Cell** |
-| Status Light | **Common LEDs** (e.g., Red, Green) |
-| Enclosure | 3D Printed Case (w/ vents) |
-| Power | 5V USB-C Power Supply (x2) |
+| RTC Battery | **CR2032 Coin Cell** |
+| Enclosure | 3D Printed Case  |
 
 ---
 
@@ -71,6 +69,7 @@ This is a [PlatformIO](https://platformio.org/) project. All firmware source cod
     * Receives data packets from ESP32-A via ESP-NOW.
     * Connects to the local Wi-Fi network.
     * Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
+
 
 
 
