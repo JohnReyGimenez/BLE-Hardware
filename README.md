@@ -12,8 +12,8 @@ The system consists of three main parts:
 
 1.  **BLE Tag (nRF52840):** Beacon that continuously broadcasts its unique ID.
 2.  **Classroom Scanner (Dual ESP32):** A two-part node that receives BLE signals and sends them to the network.
-    * **ESP32-A (Scanner):** Scans for BLE broadcasts, filters for known tags, and adds an accurate timestamp (via an RTC Module).
-    * **ESP32-B (Wi-Fi):** Receives data from ESP32-A via **ESP-NOW** and POSTs it (as JSON) to the backend API.
+    - **ESP32-A (Scanner):** Scans for BLE broadcasts, filters for known tags, and adds an accurate timestamp (via an RTC Module).
+    - **ESP32-B (Wi-Fi):** Receives data from ESP32-A via **ESP-NOW** and POSTs it (as JSON) to the backend API.
 3.  **[Backend Server (Rails API)](https://github.com/JohnReyGimenez/BLE-Attendance-API):** A central server that receives the JSON data and records the attendance.
 
 ### Data Flow
@@ -29,7 +29,7 @@ The system consists of three main parts:
 | Component | Specification |
 | :--- | :--- |
 | Microcontroller | **nRF52840 ProMicro Dev Board V2** |
-| Battery | **3.7V LiPo (e.g., 501515 80mAh)** |
+| Battery | **3.7V LiPo (501515 80mAh)** |
 | Battery Cable 1 | **JST-PH 2.0 Male** (with bare wires) |
 | Battery Cable 2 | **Male-to-Female Dupont Wires** (x2) |
 | Enclosure | 3D Printed Keyfob Case |
@@ -41,10 +41,8 @@ The system consists of three main parts:
 | Scanner Node | **ESP32 Dev Board** |
 | Wi-Fi Node | **ESP32 Dev Board** |
 | Timekeeping | **DS3231 RTC Module** |
-| RTC Battery | **CR1220 or CR2032 Coin Cell** |
-| Status Light | **Common LEDs** (e.g., Red, Green) |
-| Enclosure | 3D Printed Case (w/ vents) |
-| Power | 5V USB-C Power Supply (x2) |
+| RTC Battery | **CR2032 Coin Cell** |
+| Enclosure | 3D Printed Case  |
 
 ---
 
@@ -52,25 +50,28 @@ The system consists of three main parts:
 
 This is a [PlatformIO](https://platformio.org/) project. All firmware source code is located in the `src/` directory.
 
-* **`platformio.ini`**: The project configuration file. It defines the boards (nRF52840, ESP32), framework (Arduino), and all required libraries (e.g., BLE libraries, ESP-NOW, RTC, etc.).
+- **`platformio.ini`**: The project configuration file. It defines the boards (nRF52840, ESP32), framework (Arduino), and all required libraries
+  
+- **`src/ble_tag_nrf52840.cpp` (BLE Tag):**
+    - Firmware for the nRF52840 beacon.
+    - It initializes the chip as a BLE server and periodically broadcasts an **iBeacon frame**.
+    - This specific frame format allows scanners to efficiently identify the tag.
 
-* **`src/ble_tag_nrf52840.cpp` (BLE Tag):**
-    * Firmware for the nRF52840 beacon.
-    * It initializes the chip as a BLE server and periodically broadcasts an **iBeacon frame**.
-    * This specific frame format allows scanners to efficiently identify the tag.
+- **`src/esp32a_scanner.cpp` (Scanner Node):**
+    - Firmware for the ESP32-A, which handles all real-time sensing.
+    - Continuously scans for BLE advertisements.
+    - Filters for the specific iBeacons broadcast by the tags.
+    - Queries the DS3231 RTC for an accurate timestamp upon detection.
+    - Sends the event data (tag ID, timestamp) to ESP32-B via ESP-NOW.
 
-* **`src/esp32a_scanner.cpp` (Scanner Node):**
-    * Firmware for the ESP32-A, which handles all real-time sensing.
-    * Continuously scans for BLE advertisements.
-    * Filters for the specific iBeacons broadcast by the tags.
-    * Queries the DS3231 RTC for an accurate timestamp upon detection.
-    * Sends the event data (tag ID, timestamp) to ESP32-B via ESP-NOW.
+- **`src/esp32b_wifi.cpp` (Wi-Fi Node):**
+    - Firmware for the ESP32-B, which handles all network communication.
+    - Receives data packets from ESP32-A via ESP-NOW.
+    - Connects to the local Wi-Fi network.
+    - Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
 
-* **`src/esp32b_wifi.cpp` (Wi-Fi Node):**
-    * Firmware for the ESP32-B, which handles all network communication.
-    * Receives data packets from ESP32-A via ESP-NOW.
-    * Connects to the local Wi-Fi network.
-    * Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
+
+
 
 
 
