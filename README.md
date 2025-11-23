@@ -35,8 +35,7 @@ The system consists of three main parts:
 | Enclosure | 3D Printed Keyfob Case |
 
 ### Design
-
-
+<img width="875" height="401" alt="image" src="https://github.com/user-attachments/assets/e399555c-2fc0-4e56-beba-e35573753c99" />
 
 ### 2. Classroom Scanner
 
@@ -76,6 +75,7 @@ This is a [PlatformIO](https://platformio.org/) project. All firmware source cod
     - Receives data packets from ESP32-A via ESP-NOW.
     - Connects to the local Wi-Fi network.
     - Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
+
 
 
 
