@@ -34,6 +34,10 @@ The system consists of three main parts:
 | Battery Cable 2 | **Male-to-Female Dupont Wires** (x2) |
 | Enclosure | 3D Printed Keyfob Case |
 
+### Design
+
+
+
 ### 2. Classroom Scanner
 
 | Component | Specification |
@@ -43,6 +47,9 @@ The system consists of three main parts:
 | Timekeeping | **DS3231 RTC Module** |
 | RTC Battery | **CR2032 Coin Cell** |
 | Enclosure | 3D Printed Case  |
+
+### Design
+<img width="611" height="367" alt="image" src="https://github.com/user-attachments/assets/73bc9779-63db-4932-adc3-7b943a1b53f1" />
 
 ---
 
@@ -69,6 +76,7 @@ This is a [PlatformIO](https://platformio.org/) project. All firmware source cod
     - Receives data packets from ESP32-A via ESP-NOW.
     - Connects to the local Wi-Fi network.
     - Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
+
 
 
 
