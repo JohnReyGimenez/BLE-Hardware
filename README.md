@@ -30,8 +30,6 @@ The system consists of three main parts:
 | :--- | :--- |
 | Microcontroller | **nRF52840 ProMicro Dev Board V2** |
 | Battery | **3.7V LiPo (501515 80mAh)** |
-| Battery Cable 1 | **JST-PH 2.0 Male** (with bare wires) |
-| Battery Cable 2 | **Male-to-Female Dupont Wires** (x2) |
 | Enclosure | 3D Printed Keyfob Case |
 
 ### Design
@@ -75,6 +73,7 @@ This is a [PlatformIO](https://platformio.org/) project. All firmware source cod
     - Receives data packets from ESP32-A via ESP-NOW.
     - Connects to the local Wi-Fi network.
     - Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
+
 
 
 
