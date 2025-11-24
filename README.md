@@ -42,7 +42,6 @@ The system consists of three main parts:
 | Scanner Node | **ESP32 Dev Board** |
 | Wi-Fi Node | **ESP32 Dev Board** |
 | Timekeeping | **DS3231 RTC Module** |
-| RTC Battery | **CR2032 Coin Cell** |
 | Enclosure | 3D Printed Case  |
 
 ### Design
@@ -73,6 +72,7 @@ This is a [PlatformIO](https://platformio.org/) project. All firmware source cod
     - Receives data packets from ESP32-A via ESP-NOW.
     - Connects to the local Wi-Fi network.
     - Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
+
 
 
 
