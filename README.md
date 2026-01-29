@@ -67,7 +67,8 @@ This is a [PlatformIO](https://platformio.org/) project. All firmware source cod
     - Firmware for the ESP32-B, which handles all network communication.
     - Receives data packets from ESP32-A via ESP-NOW.
     - Connects to the local Wi-Fi network.
-    - Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
+    - Formats the data as a JSON payload and sends it to the server via an HTTP POST request.
+
 
 
 
