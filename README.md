@@ -2,7 +2,7 @@
 
 This repository contains the firmware and hardware details for the **ESP32 and nRF52840 prototypes** of a Bluetooth Low Energy (BLE) attendance system.
 
-This project is designed to automate attendance by assigning students a wearable **BLE Tag** (beacon) and using a network of **Classroom Scanners** to detect their presence. The scanners log entry/exit events, timestamp them, and forward them to a central backend server.
+This project is designed to automate attendance by assigning students a wearable **BLE Tag** (beacon) and using a network of **Classroom Scanners** to detect their presence. The scanners log entry/exit events, timestamp them, and forward them to the server.
 
 ---
 
@@ -11,14 +11,10 @@ This project is designed to automate attendance by assigning students a wearable
 The system consists of three main parts:
 
 1.  **BLE Tag (nRF52840):** Beacon that continuously broadcasts its unique ID.
-2.  **Classroom Scanner (Dual ESP32):** A two-part node that receives BLE signals and sends them to the network.
+2.  **Classroom Scanner (Dual ESP32):** A two-part node that receives BLE signals and sends them to the server.
     - **ESP32-A (Scanner):** Scans for BLE broadcasts, filters for known tags, and adds an accurate timestamp (via an RTC Module).
     - **ESP32-B (Wi-Fi):** Receives data from ESP32-A via **ESP-NOW** and POSTs it (as JSON) to the backend API.
-3.  **[Backend Server (Rails API)](https://github.com/JohnReyGimenez/BLE-Attendance-API):** A central server that receives the JSON data and records the attendance.
-
-### Data Flow
-
-`[nRF52840 Tag]` $\to$ `(BLE Broadcast)` $\to$ `[ESP32-A Scanner + RTC]` $\to$ `(ESP-NOW)` $\to$ `[ESP32-B Wi-Fi]` $\to$ `(HTTP POST)` $\to$ `[Rails API]`
+3.  **[Server](https://github.com/JohnReyGimenez/BLE-Attendance-API):** A central server that receives the JSON data and records the attendance.
 
 ---
 
@@ -72,6 +68,7 @@ This is a [PlatformIO](https://platformio.org/) project. All firmware source cod
     - Receives data packets from ESP32-A via ESP-NOW.
     - Connects to the local Wi-Fi network.
     - Formats the data as a JSON payload and sends it to the Rails API via an HTTP POST request.
+
 
 
 
